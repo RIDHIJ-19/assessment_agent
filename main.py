@@ -57,17 +57,12 @@ def groq_completion(**kwargs):
 # Embedding + FAISS Setup
 # -------------------------------------------------
 
-embedding_model = None  
-
-def get_embedding_model():
-    global embedding_model
-
-    if embedding_model is None:
-        embedding_model = SentenceTransformer(
+ 
+embedding_model = SentenceTransformer(
             "all-MiniLM-L6-v2"
-        )
+)
 
-    return embedding_model
+ 
 
 index = faiss.read_index(
     "faiss_index.bin"
@@ -1589,7 +1584,7 @@ def run_pipeline(request: ChatRequest):
     print("Search queries:", flush=True)
     print(search_queries, flush=True)
 
-
+    print("BEFORE SEMANTIC SEARCH", flush=True)
     candidates = [
         enrich_candidate(c)
         for c in semantic_search(
@@ -1597,6 +1592,7 @@ def run_pipeline(request: ChatRequest):
             k=5
         )
     ]
+    print("AFTER SEMANTIC SEARCH", flush=True)
     candidates = candidates[:15]
     debug["candidates_count"] = len(candidates)
     debug["candidates_full"] = [
