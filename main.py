@@ -8,6 +8,9 @@ import pickle
 
 import numpy as np
 import faiss
+import os
+
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
 from sentence_transformers import SentenceTransformer
 from groq import Groq, RateLimitError
 import time
@@ -54,10 +57,17 @@ def groq_completion(**kwargs):
 # Embedding + FAISS Setup
 # -------------------------------------------------
 
-embedding_model = SentenceTransformer(
-    "all-MiniLM-L6-v2"
-)
+embedding_model = None  
 
+def get_embedding_model():
+    global embedding_model
+
+    if embedding_model is None:
+        embedding_model = SentenceTransformer(
+            "all-MiniLM-L6-v2"
+        )
+
+    return embedding_model
 
 index = faiss.read_index(
     "faiss_index.bin"
@@ -88,11 +98,8 @@ assessments_by_id = {
 
 catalog_names = [a["name"] for a in assessments]
 
-catalog_name_embeddings = (
-    embedding_model.encode(catalog_names)
-    if catalog_names
-    else np.array([])
-)
+catalog_name_embeddings = np.array([])
+
 
 
 def enrich_candidate(candidate):
@@ -135,7 +142,7 @@ def normalize_to_catalog(value, catalog_values, threshold=0.5):
 
     candidates = [value] + catalog_values
 
-    embeddings = embedding_model.encode(candidates)
+    embeddings = get_embedding_model().encode(candidates)
 
     query_embedding = embeddings[0]
     catalog_embeddings = embeddings[1:]
@@ -744,7 +751,7 @@ def semantic_search(query, k=10):
         if not q:
             continue
 
-        query_embedding = embedding_model.encode([q])
+        query_embedding = get_embedding_model().encode([q])
 
         distances, indices = index.search(
             query_embedding,
@@ -1253,7 +1260,7 @@ def find_catalog_match(term, threshold=0.5):
     if len(catalog_names) == 0:
         return None
 
-    query_embedding = embedding_model.encode([term])[0]
+    query_embedding = get_embedding_model().encode([term])[0]
 
     similarities = np.dot(
         catalog_name_embeddings,
