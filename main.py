@@ -137,7 +137,7 @@ def normalize_to_catalog(value, catalog_values, threshold=0.5):
 
     candidates = [value] + catalog_values
 
-    embeddings = get_embedding_model().encode(candidates)
+    embeddings = embedding_model.encode(candidates)
 
     query_embedding = embeddings[0]
     catalog_embeddings = embeddings[1:]
@@ -746,7 +746,7 @@ def semantic_search(query, k=10):
         if not q:
             continue
 
-        query_embedding = get_embedding_model().encode([q])
+        query_embedding = embedding_model.encode([q])
 
         distances, indices = index.search(
             query_embedding,
@@ -1255,7 +1255,7 @@ def find_catalog_match(term, threshold=0.5):
     if len(catalog_names) == 0:
         return None
 
-    query_embedding = get_embedding_model().encode([term])[0]
+    query_embedding = embedding_model.encode([term])[0]
 
     similarities = np.dot(
         catalog_name_embeddings,
