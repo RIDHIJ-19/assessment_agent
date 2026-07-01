@@ -1,0 +1,114 @@
+===== UNIQUE BEHAVIORAL TEST CATEGORIES =====
+
+- Ability & Aptitude
+- Assessment Exercises
+- Biodata & Situational Judgment
+- Competencies
+- Development & 360
+- Knowledge & Skills
+- Personality & Behavior
+- Simulations
+
+
+===== MOST COMMON BEHAVIORAL TERMS =====
+
+report: 208
+scenarios: 65
+development: 60
+management: 59
+sales: 52
+scales: 45
+individual: 44
+reports: 40
+scores: 39
+competency: 39
+narrative: 38
+potential: 35
+profile: 35
+solution: 34
+feedback: 34
+managerial: 33
+questionnaire: 33
+candidate: 31
+judgement: 30
+assessment: 29
+customer: 29
+center: 29
+available: 28
+provides: 27
+performance: 27
+designed: 26
+information: 26
+style: 26
+personality: 26
+service: 25
+contact: 25
+level: 24
+behaviors: 23
+these: 23
+which: 23
+highly: 23
+entry: 22
+sample: 22
+include: 22
+leadership: 21
+using: 21
+detailed: 21
+talent: 21
+occupational: 21
+customers: 19
+ability: 19
+model: 19
+central: 19
+selection: 19
+focused: 19
+people: 19
+candidates: 18
+based: 18
+managing: 18
+measure: 17
+their: 17
+strengths: 17
+situations: 17
+language: 17
+universal: 17
+skills: 16
+contains: 16
+types: 16
+tasks: 15
+please: 15
+participant: 15
+framework: 15
+impact: 15
+executive: 15
+objectives: 15
+graduate: 15
+insights: 15
+interview: 15
+environment: 14
+training: 14
+coaching: 14
+areas: 14
+across: 13
+simulation: 13
+manager: 13
+english: 13
+effective: 13
+group: 13
+effectiveness: 13
+system: 13
+motivation: 13
+platform: 13
+phone: 12
+competencies: 12
+digital: 12
+managers: 12
+unique: 12
+consists: 12
+responses: 12
+scale: 12
+industries: 12
+manufacturing: 12
+industrial: 12
+focus: 12
+reporting: 12
