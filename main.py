@@ -1180,7 +1180,7 @@ def build_recommendations(candidates, constraints, ranked):
                 constraints.get("test_type_keywords", [])
             )
             if "A" not in requested_test_types:
-                if types == {"A"}:
+                if set(match.get("test_types", [])) == {"A"}:
                     continue
 
         if item.get("relevance_score", 0) <50 and len(selected) >= 2:
@@ -1700,3 +1700,12 @@ def chat_debug(request: ChatRequest):
     return {"response": response, "debug": debug}
 
 '''
+
+if __name__ == "__main__":
+    import uvicorn
+
+    uvicorn.run(
+        app,
+        host="0.0.0.0",
+        port=8080
+    )
