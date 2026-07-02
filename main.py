@@ -8,13 +8,11 @@ import pickle
 
 import numpy as np
 import faiss
-import os
 
-os.environ["TOKENIZERS_PARALLELISM"] = "false"
-from sentence_transformers import SentenceTransformer
 from groq import Groq, RateLimitError
 import time
 
+from onnx_embedder import ONNXEmbedder
 from load_catalog import assessments, build_catalog_features
 
 catalog_features = build_catalog_features(assessments)
@@ -52,17 +50,16 @@ def groq_completion(**kwargs):
             print(f"Groq rate limit hit. Retrying after {wait_time}s...")
             time.sleep(wait_time)
 
-
 # -------------------------------------------------
 # Embedding + FAISS Setup
 # -------------------------------------------------
 
- 
-embedding_model = SentenceTransformer(
-            "all-MiniLM-L6-v2"
+
+embedding_model = ONNXEmbedder(
+    "onnx_model"
 )
 
- 
+
 
 index = faiss.read_index(
     "faiss_index.bin"
@@ -93,7 +90,11 @@ assessments_by_id = {
 
 catalog_names = [a["name"] for a in assessments]
 
-catalog_name_embeddings = np.array([])
+catalog_name_embeddings = (
+    embedding_model.encode(catalog_names)
+    if catalog_names
+    else np.array([])
+)
 
 
 
@@ -444,39 +445,39 @@ def is_assessment_query(message, conversation=None):
         "recommendation",
         "recommendations",
         "hire",
-"hiring",
-"candidate",
-"candidates",
-"developer",
-"engineer",
-"role",
-"position",
-"evaluate",
-"evaluation",
-"screen",
-"screening",
-"selection",
-"recruitment",
-    "verbal",
-    "numerical",
-    "cognitive",
-    "aptitude",
-    "ability",
-    "reasoning",
-    "personality",
-    "behavior",
-    "behaviour",
-    "coding",
-    "technical",
-    "skill",
-    "skills",
-    "knowledge",
-    "competency",
-    "competencies",
-    "simulation",
-    "biodata",
-    "judgment",
-    "judgement",
+        "hiring",
+        "candidate",
+        "candidates",
+        "developer",
+        "engineer",
+        "role",
+        "position",
+        "evaluate",
+        "evaluation",
+        "screen",
+        "screening",
+        "selection",
+        "recruitment",
+        "verbal",
+        "numerical",
+        "cognitive",
+        "aptitude",
+        "ability",
+        "reasoning",
+        "personality",
+        "behavior",
+        "behaviour",
+        "coding",
+        "technical",
+        "skill",
+        "skills",
+        "knowledge",
+        "competency",
+        "competencies",
+        "simulation",
+        "biodata",
+        "judgment",
+        "judgement",
     ]
 
     if any(term in text_lower for term in assessment_terms):
@@ -678,21 +679,41 @@ Output:
 
 
 def has_sufficient_context(constraints):
-    fields = [
+    meaningful_fields = [
         "job_level", "languages", "duration",
-        "remote", "adaptive", "test_type_keywords", "skills", "competencies"
+        "remote", "adaptive" 
     ]
+    structured_fields = [
+        "skills",
+        "competencies",
+        "test_type_keywords"
+    ]
+    has_real_structured = False
 
-    for field in fields:
-        value = constraints.get(field)
+    for field in structured_fields:
+        values = constraints.get(field)
 
-        if isinstance(value, list) and len(value) > 0:
-            return True
+        if not isinstance(values, list):
+            continue 
+        cleaned = [
+            v for v in values
+            if isinstance(v, str)
+            and len(v.strip()) > 2
+            and v.lower() not in {"assessment", "test", "job", "work"}
+        ]
 
-        if isinstance(value, str) and value.strip():
-            return True
+        if len(cleaned) > 0:
+            has_real_structured = True
+            break
+             
+    has_metadata = any(
+            constraints.get(f)
+            for f in meaningful_fields
+            if constraints.get(f)
+    )
+        
 
-    return False
+    return has_real_structured or has_metadata
 
 
 def generate_clarifying_question(conversation):
@@ -797,13 +818,29 @@ def filter_assessments(candidates, constraints):
 
     if constraints.get("job_level"):
         job_level_lower = constraints["job_level"].lower().strip()
+        skills_present = bool(constraints.get("skills"))
 
-        filtered = [
-            a for a in filtered
-            if job_level_lower in [
-                x.lower().strip() for x in a.get("job_levels", [])
+        # -------------------------------------------------
+        # Soft job-level filtering when technical skills exist
+        # -------------------------------------------------
+        if skills_present:
+        # Do NOT hard filter; instead prefer matching level
+            filtered = sorted(
+                filtered,
+                key=lambda a: (
+                    job_level_lower in [
+                        x.lower().strip() for x in a.get("job_levels", [])
+                    ]
+                ),
+                reverse=True
+            )
+        else:
+            filtered = [
+                a for a in filtered
+                if job_level_lower in [
+                    x.lower().strip() for x in a.get("job_levels", [])
+                ]
             ]
-        ]
 
     if constraints.get("languages"):
         langs = [l.lower().strip() for l in constraints["languages"] if l]
@@ -1096,7 +1133,36 @@ Required format:
 TECHNICAL_TYPES = {"K", "A"}
 BEHAVIORAL_TYPES = {"P", "B", "C", "D"}
 
+TECH_SKILL_BOOST = {
+    "java": 20,
+    "python": 20,
+    "sql": 15,
+    "javascript": 15,
+    "c++": 15,
+    "coding": 10,
+    "programming": 10
+}
+def apply_skill_boost(candidate, constraints):
+    score_boost = 0
 
+    skills = constraints.get("skills", [])
+    if not skills:
+        return 0
+
+    text = (
+        candidate.get("name", "") + " " +
+        candidate.get("description", "") + " " +
+        " ".join(candidate.get("keys", []))
+    ).lower()
+
+    for skill in skills:
+        skill_lower = skill.lower().strip()
+
+        for key, boost in TECH_SKILL_BOOST.items():
+            if key in skill_lower and key in text:
+                score_boost += boost
+
+    return score_boost
 def build_recommendations(candidates, constraints, ranked):
     by_name = {c["name"]: c for c in candidates}
 
@@ -1123,6 +1189,11 @@ def build_recommendations(candidates, constraints, ranked):
     # Sort the FULL ranking (not just items clearing a fixed score cutoff)
     # so a technical/behavioral requirement can still be covered even if
     # the ranker under-scored every candidate in that category.
+    for r in ranked:
+        match = by_name.get(r.get("name", ""))
+        if match:
+            boost = apply_skill_boost(match, constraints)
+            r["relevance_score"] = r.get("relevance_score", 0) + boost
     scored = sorted(ranked, key=lambda r: r.get("relevance_score", 0), reverse=True)
 
     need_technical = bool(constraints.get("skills"))
@@ -1178,7 +1249,7 @@ def build_recommendations(candidates, constraints, ranked):
                 if set(match.get("test_types", [])) == {"A"}:
                     continue
 
-        if item.get("relevance_score", 0) <50 and len(selected) >= 2:
+        if item.get("relevance_score", 0) < 50 and len(selected) >= 2:
             continue
 
         add(match)
