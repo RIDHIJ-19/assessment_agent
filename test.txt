@@ -1,0 +1,365 @@
+[
+  {
+    "id": 1,
+    "messages": [
+      {
+        "role": "user",
+        "content": "We need a solution for senior leadership."
+      },
+      {
+        "role": "assistant",
+        "content": "Happy to help narrow that down. Who is this meant for?"
+      },
+      {
+        "role": "user",
+        "content": "The pool consists of CXOs, director-level positions; people with more than 15 years of experience."
+      },
+      {
+        "role": "assistant",
+        "content": "For such roles, the OPQ32r is the right instrument — it measures workplace behaviour dimensions. Is this for a newly created position, or developmental feedback for an executive already in role?"
+      },
+      {
+        "role": "user",
+        "content": "Selection — comparing candidates against a leadership benchmark."
+      }
+    ],
+    "ground_truth": "Occupational Personality Questionnaire OPQ32r"
+  },
+
+  {
+    "id": 2,
+    "messages": [
+      {
+        "role": "user",
+        "content": "I'm hiring a senior Rust engineer for high-performance networking infrastructure. What assessments should I use?"
+      },
+      {
+        "role": "assistant",
+        "content": "SHL's catalog doesn't currently include a Rust-specific knowledge test. The closest fit for a senior IC is Smart Interview Live Coding — an adaptive live-coding interview where your panel can frame Rust-specific tasks directly. Linux Programming covers systems depth, and Networking and Implementation covers the infrastructure dimension. Want me to build a shortlist from these?"
+      },
+      {
+        "role": "user",
+        "content": "Yes, go ahead. Should I also add a cognitive test for this level?"
+      },
+      {
+        "role": "assistant",
+        "content": "Yes — Verify G+ is appropriate for senior technical candidates, covering inductive, numerical, and deductive reasoning in a single adaptive test. Full shortlist:\n\nI'm including OPQ32r by default as the personality component for a senior IC hire — say the word if you'd rather drop it.\n\n1. Smart Interview Live Coding\n2. Linux Programming (General)\n3. Networking and Implementation (New)\n4. SHL Verify Interactive G+\n5. Occupational Personality Questionnaire OPQ32r"
+      },
+      {
+        "role": "user",
+        "content": "That works. Thanks."
+      },
+      {
+        "role": "assistant",
+        "content": "Note there's no Rust-specific test in the catalog — worth revisiting if that changes.\n\n1. Smart Interview Live Coding\n2. Linux Programming (General)\n3. Networking and Implementation (New)\n4. SHL Verify Interactive G+\n5. Occupational Personality Questionnaire OPQ32r"
+      }
+    ],
+    "ground_truth": "SHL Verify Interactive G+  Programming"
+  },
+
+  {
+    "id": 3,
+    "messages": [
+      {
+        "role": "user",
+        "content": "We're screening 500 entry-level contact centre agents. Inbound calls, customer service focus. What should we use?"
+      },
+      {
+        "role": "assistant",
+        "content": "Before I shape the stack — what language are the calls in? That drives which spoken-language screen we use."
+      },
+      {
+        "role": "user",
+        "content": "English."
+      },
+      {
+        "role": "assistant",
+        "content": "SVAR has four English variants in the catalog: US, UK, Australian, and Indian accent. The choice matters because the screen is calibrated for the accent your callers will hear. Which fits your operation?"
+      },
+      {
+        "role": "user",
+        "content": "US."
+      },
+      {
+        "role": "assistant",
+        "content": "For high-volume entry-level contact centre screening in English US, the right stack layers a spoken language screen, a simulation, and a behavioural fit component:\n\n1. SVAR Spoken English (US) (New)\n2. Contact Center Call Simulation (New)\n3. Entry Level Customer Serv - Retail & Contact Center\n4. Customer Service Phone Simulation"
+      },
+      {
+        "role": "user",
+        "content": "Is the Contact Center Call Simulation different from the Customer Service Phone Simulation?"
+      },
+      {
+        "role": "assistant",
+        "content": "Yes — distinct products. The Customer Service Phone Simulation is an older bundled solution (B, P, S) combining personality, behaviour, and simulation in one package. The Contact Center Call Simulation (New) is a standalone, newer simulation focused purely on the in-call interaction. Many clients use the new simulation for volume screening and the older solution for finalist-stage depth."
+      },
+      {
+        "role": "user",
+        "content": "Perfect — new simulation for volume, old solution for finalists. Confirmed."
+      },
+      {
+        "role": "assistant",
+        "content": "Good two-stage design.\n\n1. SVAR Spoken English (US) (New)\n2. Contact Center Call Simulation (New)\n3. Entry Level Customer Serv - Retail & Contact Center\n4. Customer Service Phone Simulation"
+      }
+    ],
+    "ground_truth": "Entry Level Contact Center Call Simulation (New)"
+  },
+
+  {
+    "id": 4,
+    "messages": [
+      {
+        "role": "user",
+        "content": "Hiring graduate financial analysts — final-year students, no work experience. We need numerical reasoning and finance knowledge test."
+      },
+      {
+        "role": "assistant",
+        "content": "For graduate-level financial analysts:\n\n1. SHL Verify Interactive – Numerical Reasoning\n2. Financial Accounting (New)\n3. Basic Statistics (New)\n4. Occupational Personality Questionnaire OPQ32r"
+      },
+      {
+        "role": "user",
+        "content": "Good. Can you also add a situational judgement element — work-context decision making for graduates?"
+      },
+      {
+        "role": "assistant",
+        "content": "Added Graduate Scenarios — SHL's situational judgement test designed specifically for graduate-level candidates. The previous three items are unchanged:\n\n1. SHL Verify Interactive – Numerical Reasoning\n2. Financial Accounting (New)\n3. Basic Statistics (New)\n4. Graduate Scenarios\n5. Occupational Personality Questionnaire OPQ32r"
+      },
+      {
+        "role": "user",
+        "content": "That covers it. Numerical + Graduate Scenarios as first filter, domain tests for shortlisted candidates."
+      }
+    ],
+    "ground_truth": "SHL Verify Interactive – Numerical Reasoning"
+  },
+
+  {
+    "id": 5,
+    "messages": [
+      {
+        "role": "user",
+        "content": "As part of our restructuring and annual talent audit, we need to re-skill our Sales organization. What solutions do you recommend?"
+      },
+      {
+        "role": "assistant",
+        "content": "For a compact audit-and-development stack: self-reported skills (GSA plus its development report for re-skilling initiative), personality via OPQ32r, a sales-specific OPQ view with optional motivators, and Sales Transformation for how reps show up in a digital-first selling model. First-line sales managers can follow the same spine and use the Sales Manager Sales Transformation report from the catalog when you split leader vs. rep reporting.\n\n1. Global Skills Assessment\n2. Global Skills Development Report\n3. Occupational Personality Questionnaire OPQ32r\n4. OPQ MQ Sales Report\n5. Sales Transformation 2.0 - Individual Contributor"
+      },
+      {
+        "role": "user",
+        "content": "What’s the difference between OPQ and OPQ MQ Sales Report?"
+      },
+      {
+        "role": "assistant",
+        "content": "OPQ (OPQ32r) is the underlying personality questionnaire: a broad, standard measure of workplace behavioural style used across roles and decisions (development, team fit, etc.).\n\nOPQ MQ Sales Report is a reporting product, not a different questionnaire. It summarizes OPQ results in a sales-specific way with optional Motivation Questionnaire (MQ) enrichment to reflect sales drivers and motivators.\n\nSo: OPQ32r = assessment; OPQ MQ Sales Report = sales-focused interpretation layer of those results."
+      },
+      {
+        "role": "user",
+        "content": "Clear. We’ll use OPQ for everyone and add MQ only where we want motivators in the Sales Report; keeping the five solutions as our audit stack."
+      }
+    ],
+    "ground_truth": "Occupational Personality Questionnaire OPQ32r"
+  },
+
+  {
+    "id": 6,
+    "messages": [
+      {
+        "role": "user",
+        "content": "We're hiring plant operators for a chemical facility. Safety is absolute top priority — reliability, procedure compliance, never cutting corners. What do you recommend?"
+      },
+      {
+        "role": "assistant",
+        "content": "For a safety-critical frontline role where dependability and rule compliance are the primary concern, the assessment focus must be on personality predictors of safety behaviour — not just knowledge tests. A knowledge test tells you what someone knows about safety; a personality instrument predicts whether they'll actually follow through.\n\n1. Dependability and Safety Instrument (DSI)\n2. Manufacturing & Industrial Safety & Dependability 8.0\n3. Workplace Health and Safety (New)"
+      },
+      {
+        "role": "user",
+        "content": "What's the difference between the DSI and the Safety & Dependability 8.0?"
+      },
+      {
+        "role": "assistant",
+        "content": "Both measure safety-relevant personality, but at different levels. The DSI is a standalone instrument measuring integrity, reliability, and safety attitudes — used across sectors. The Manufacturing & Industrial Safety & Dependability 8.0 is a sector-specific bundled solution with norms calibrated to manufacturing and industrial workforces. If your facility is industrial-classified, the 8.0 gives you industry norms. If you want a general standalone instrument, the DSI is the right choice."
+      },
+      {
+        "role": "user",
+        "content": "We're industrial. The 8.0 bundle is the right fit. Confirmed."
+      },
+      {
+        "role": "assistant",
+        "content": "Good choice for an industrial context. Shortlist confirmed.\n\n1. Manufacturing & Industrial Safety & Dependability 8.0\n2. Workplace Health and Safety (New)"
+      }
+    ],
+    "ground_truth": "Manufacturing & industrial - Safety & Dependability 8.0"
+  },
+
+  {
+    "id": 7,
+    "messages": [
+      {
+        "role": "user",
+        "content": "We're hiring bilingual healthcare admin staff in South Texas — they handle patient records and need to be assessed in Spanish. HIPAA compliance is critical. What assessments work?"
+      },
+      {
+        "role": "assistant",
+        "content": "There's a real catalog constraint here: the role-specific knowledge tests for healthcare admin — HIPAA (Security), Medical Terminology, Microsoft Word — are English-only. The personality measures (OPQ32r, DSI) do support Latin American Spanish.\n\nTwo ways to run this:\n(a) Hybrid: knowledge tests in English, personality in Spanish. Workable if your candidates are functionally bilingual at a working level for the English knowledge tests.\n(b) Personality-only in Spanish, and assess HIPAA/medical terminology through your own structured interview. Trades off measurement rigour for language fit.\n\nWhich fits your candidate pool better?"
+      },
+      {
+        "role": "user",
+        "content": "They're functionally bilingual — English fluent for written work. Go with the hybrid."
+      },
+      {
+        "role": "assistant",
+        "content": "For a trust-sensitive role with patient-record access, two complementary personality measures: DSI focuses specifically on dependability and safety-critical reliability — directly relevant to HIPAA-protected information handling. OPQ32r gives a broader workplace-behaviour profile. Both run in Latin American Spanish.\n\n1. HIPAA (Security)\n2. Medical Terminology (New)\n3. Microsoft Word 365 - Essentials (New)\n4. Dependability and Safety Instrument (DSI)\n5. Occupational Personality Questionnaire OPQ32r"
+      },
+      {
+        "role": "user",
+        "content": "Are we legally required under HIPAA to test all staff who touch patient records? And does this SHL test satisfy that requirement?"
+      },
+      {
+        "role": "assistant",
+        "content": "Those are legal compliance questions outside what I can advise on — I can help you select assessments, but not interpret regulatory obligations or whether a specific test satisfies a legal requirement. Your legal or compliance team is the right resource for that.\n\nWhat I can confirm: HIPAA (Security) measures knowledge of HIPAA security provisions. Whether using it fulfils a particular regulatory obligation is a question for counsel."
+      },
+      {
+        "role": "user",
+        "content": "Understood. Keep the shortlist as-is."
+      }
+    ],
+    "ground_truth": "Dependability and Safety Instrument (DSI)" 
+  },
+
+  {
+    "id": 8,
+    "messages": [
+      {
+        "role": "user",
+        "content": "I need to quickly screen admin assistants for Excel and Word daily."
+      },
+      {
+        "role": "assistant",
+        "content": "For a quick knowledge check, the knowledge-only variants are the right fit — they test conceptual understanding.\n\nWe also have end-to-end simulations to test these capabilities but I have excluded them due to the time constraint.\n\nI've also included OPQ32r as a default personality measure — admin-assistant hires benefit from a behavioural fit signal beyond pure tool knowledge. Say the word if you'd prefer to skip personality."
+      },
+      {
+        "role": "user",
+        "content": "In that case, I am OK with adding a simulation - we want to capture the capabilities."
+      },
+      {
+        "role": "assistant",
+        "content": "Understood. Here's the updated list:\n\n1. Microsoft Excel 365 (New)\n2. Microsoft Word 365 (New)\n3. MS Excel (New)\n4. MS Word (New)\n5. Occupational Personality Questionnaire OPQ32r"
+      },
+      {
+        "role": "user",
+        "content": "That's good."
+      }
+    ],
+    "ground_truth": "Microsoft Excel 365 (New)"
+  },
+
+  {
+    "id": 9,
+    "messages": [
+      {
+        "role": "user",
+        "content": "Here's the JD for an engineer we need to fill. Can you recommend an assessment battery?\n\nSenior Full-Stack Engineer — 5+ years across Core Java, Spring, REST API design, Angular, SQL/relational databases, AWS deployment, and Docker. Will own end-to-end microservice delivery, contribute to architectural decisions, and mentor mid-level engineers. Strong CI/CD and cloud-native experience required."
+      },
+      {
+        "role": "assistant",
+        "content": "That JD spans seven distinct areas — Core Java, Spring, REST APIs, Angular, SQL, AWS, and Docker. The catalog has dedicated knowledge tests for each. A focused recommendation needs to know what the candidate will actually own. To narrow this down: Is this a backend-leaning role (Java / Spring / SQL heavy) or a frontend-heavy role or a true balanced full-stack role with significant Angular work?"
+      },
+      {
+        "role": "user",
+        "content": "Backend-leaning. Day-one priorities are Core Java and Spring; SQL is constant. Angular is occasional — they'd review frontend PRs but not own features."
+      },
+      {
+        "role": "assistant",
+        "content": "Understood — Java, Spring, and SQL as primary; Angular as secondary review-only. One more question before I shape the battery: is the seniority closer to a senior IC (deep backend ownership, leads design on their service) or a tech lead (sets architecture across services, reviews other engineers' work)?"
+      },
+      {
+        "role": "user",
+        "content": "Senior IC. They lead design on their own services but don't manage other engineers directly."
+      },
+      {
+        "role": "assistant",
+        "content": "For a senior IC backend engineer with Java / Spring / SQL primary and Angular secondary, here's a first shortlist focused on what they'll actually own:\n\n1. Core Java (Advanced Level) (New)\n2. Spring (New)\n3. RESTful Web Services (New)\n4. SQL (New)\n5. SHL Verify Interactive G+\n6. Occupational Personality Questionnaire OPQ32r"
+      },
+      {
+        "role": "user",
+        "content": "Add AWS and Docker. Drop REST — the API design signal will already come through in Spring and the live interview."
+      },
+      {
+        "role": "assistant",
+        "content": "Updated — REST out, AWS and Docker in:\n\n1. Core Java (Advanced Level) (New)\n2. Spring (New)\n3. SQL (New)\n4. Amazon Web Services (AWS) Development (New)\n5. Docker (New)\n6. SHL Verify Interactive G+\n7. Occupational Personality Questionnaire OPQ32r"
+      },
+      {
+        "role": "user",
+        "content": "On Java — they'd be working on existing services, not greenfield. Is the Advanced level the right pick?"
+      },
+      {
+        "role": "assistant",
+        "content": "Yes. Advanced covers concurrency, JVM internals, performance tuning, and the kind of design-level Java that comes up when extending production microservices — which matches \"owns end-to-end microservice delivery\". Keeping Advanced.\n\n1. Core Java (Advanced Level) (New)\n2. Spring (New)\n3. SQL (New)\n4. Amazon Web Services (AWS) Development (New)\n5. Docker (New)\n6. SHL Verify Interactive G+\n7. Occupational Personality Questionnaire OPQ32r"
+      },
+      {
+        "role": "user",
+        "content": "Do we really need Verify G+ on top of all the technical tests? Feels redundant."
+      },
+      {
+        "role": "assistant",
+        "content": "Not redundant — they measure different things. The technical tests confirm the candidate already knows the stack. Verify G+ measures general reasoning ability, which predicts how quickly they'll learn unfamiliar parts of the stack and adapt in production. That said, dropping it is a valid tradeoff."
+      },
+      {
+        "role": "user",
+        "content": "Keep Verify G+. Locking it in."
+      }
+    ],
+    "ground_truth": "SHL Verify Interactive G+ Java Rest "
+  },
+
+  {
+    "id": 10,
+    "messages": [
+      {
+        "role": "user",
+        "content": "We run a graduate management trainee scheme. We need a full battery — cognitive, personality, and situational judgement. All recent graduates."
+      },
+      {
+        "role": "assistant",
+        "content": "For a graduate management trainee battery covering all three dimensions:\n\n1. SHL Verify Interactive G+\n2. Occupational Personality Questionnaire OPQ32r\n3. Graduate Scenarios"
+      },
+      {
+        "role": "user",
+        "content": "But can you remove the OPQ32r and replace it with something shorter? Candidates complain it takes too long."
+      },
+      {
+        "role": "assistant",
+        "content": "OPQ32r is the most relevant solution for your need. As such, there is no shorter alternative to be used as its replacement."
+      },
+      {
+        "role": "user",
+        "content": "Drop the OPQ. Final list: Verify G+ and Graduate Scenarios."
+      },
+      {
+        "role": "assistant",
+        "content": "Updated. OPQ32r removed. Final shortlist confirmed.\n\n1. SHL Verify Interactive G+\n2. Graduate Scenarios"
+      }
+    ],
+    "ground_truth": "SHL Verify Interactive G+ OPQ32r"
+  },
+
+  {
+    "id": 11,
+    "messages": [
+      {
+        "role": "user",
+        "content": "What is the weather today?"
+      }
+    ],
+    "ground_truth": ""
+  },
+
+  {
+    "id": 12,
+    "messages": [
+      {
+        "role": "user",
+        "content": "Can you check the weather near me and suggest if I should carry an umbrella?"
+      }
+    ],
+    "ground_truth": ""
+  }
+]
